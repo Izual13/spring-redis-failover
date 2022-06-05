@@ -1,9 +1,12 @@
 FROM redis
-COPY redis.conf /redis/redis.conf
-COPY init.sh /redis/init.sh
-#
-RUN cat /redis/redis.conf
 
-#CMD [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+ADD redis.conf /redis/redis.conf
+ADD init.sh /redis/init.sh
+
+
 CMD [ "/redis/init.sh" ]
-#CMD [ "/bin/bash" ]
+
+
+RUN chmod +x /redis/init.sh
+RUN chmod -R 0755 /redis/
+RUN chown -R redis:redis /redis
